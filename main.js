@@ -32,6 +32,7 @@ class Character {
         this.col = col;
         this.row = row;
         this.playerDirection = 'down';
+        this.score = 0;
     }
 
     moveUp() {
@@ -111,12 +112,17 @@ window.addEventListener('keydown', (event) => {
             player.moveDown();
             break;
     }
+
+    // Check if the user is on the treasure
+    if (player.row === treasure.row && player.col === treasure.col) {
+        player.score++;
+        console.log(player.score);
+        treasure.setRandomPosition();
+    }
+
+    updateScoreBoard();
     drawEverything();
 });
-
-
-
-
 
 function drawEverything() {
     ctx.clearRect(0, 0, width, height);
@@ -125,8 +131,8 @@ function drawEverything() {
     drawTreasure();
 }
 
+function updateScoreBoard() {
+    document.querySelector('.player > span').innerText = player.score;
+}
+
 drawEverything();
-
-
-
-
